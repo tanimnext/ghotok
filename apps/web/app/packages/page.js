@@ -17,7 +17,11 @@ export default async function PackagesPage({ searchParams }) {
         <h1 className="h2">{t.pkg.title}</h1>
         <p className="lead">{t.pkg.sub}</p>
       </div>
-      {data ? <BuyFlow packages={data.items} payment={data.payment} initialPackage={sp.package} /> : <p className="card empty">{t.common.error}</p>}
+      {data ? (
+        <BuyFlow packages={data.items} payment={data.payment} initialPackage={sp.package} />
+      ) : (
+        <p className="card empty">{t.common.error}</p>
+      )}
     </div>
   );
 }

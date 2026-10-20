@@ -6,7 +6,7 @@ import { assertUpload } from '../../middleware/upload.js';
 import { putFile, deleteFile, newKey } from '../../services/storage.js';
 import { normalizeWalletNumber } from '@ghotok/shared';
 import { Resource } from '../content/content.models.js';
-import { getSettings, updateSettings } from '../content/settings.service.js';
+import { getAdminSettings, updateSettings } from '../content/settings.service.js';
 import { audit } from '../audit/audit.js';
 
 const r = createRouter({ prefix: '/admin', tag: 'Admin · content', defaults: { role: 'superadmin' } });
@@ -44,7 +44,7 @@ const settingsBody = z.object({
 });
 
 r.get('/settings', { summary: 'Current site settings', role: 'admin' }, async (_req, res) => {
-  res.json({ settings: await getSettings({ fresh: true }) });
+  res.json({ settings: await getAdminSettings() });
 });
 
 r.put('/settings', { summary: 'Update site settings (only the parts sent)', body: settingsBody }, async (req, res) => {

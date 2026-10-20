@@ -12,12 +12,18 @@ export default async function FaqPage() {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: items.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+    mainEntity: items.map(([q, a]) => ({
+      '@type': 'Question',
+      name: q,
+      acceptedAnswer: { '@type': 'Answer', text: a },
+    })),
   };
   return (
     <div className="container" style={{ padding: '48px 28px 0', maxWidth: 860 }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <h1 className="h2" style={{ marginBottom: 24 }}>{t.pages.faqT}</h1>
+      <h1 className="h2" style={{ marginBottom: 24 }}>
+        {t.pages.faqT}
+      </h1>
       {items.map(([q, a]) => (
         <details key={q} className="faq">
           <summary>{q}</summary>

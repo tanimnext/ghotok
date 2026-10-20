@@ -12,7 +12,8 @@
     "./biodata": "./src/biodata/schema.js",
     "./rules": "./src/biodata/rules.js",
     "./errors": "./src/i18n/errors.js",
-    "./phone": "./src/phone.js"
+    "./phone": "./src/phone.js",
+    "./labels": "./src/i18n/labels.js"
   },
   "files": [
     "src"

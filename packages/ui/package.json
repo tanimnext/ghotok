@@ -1,0 +1,25 @@
+{
+  "name": "@ghotok/ui",
+  "version": "1.0.0",
+  "private": true,
+  "description": "React components, styles and the API client shared by the Ghotok website and admin panel",
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "exports": {
+    ".": "./src/index.js",
+    "./api": "./src/api.js",
+    "./biodata": "./src/biodata/index.js",
+    "./styles.css": "./src/styles/index.css"
+  },
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "@ghotok/shared": "*"
+  },
+  "peerDependencies": {
+    "react": ">=19"
+  }
+}

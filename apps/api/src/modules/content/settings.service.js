@@ -27,6 +27,19 @@ export async function getSettings({ fresh = false } = {}) {
   return value;
 }
 
+/** Settings for the admin editor: like getSettings, but the announcement keeps its text and flag. */
+export async function getAdminSettings() {
+  const [pub, raw] = await Promise.all([getSettings({ fresh: true }), Setting.findById('site').lean()]);
+  return {
+    ...pub,
+    announcement: {
+      en: raw?.announcement?.en || '',
+      bn: raw?.announcement?.bn || '',
+      active: Boolean(raw?.announcement?.active),
+    },
+  };
+}
+
 export async function updateSettings(patch, actorId) {
   await Setting.findByIdAndUpdate(
     'site',
@@ -34,7 +47,7 @@ export async function updateSettings(patch, actorId) {
     { upsert: true, new: true, runValidators: true }
   );
   cache = { value: null, at: 0 };
-  return getSettings({ fresh: true });
+  return getAdminSettings();
 }
 
 /** For tests. */

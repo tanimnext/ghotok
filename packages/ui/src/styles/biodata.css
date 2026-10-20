@@ -1,0 +1,91 @@
+/* Biodata form and view. */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px 24px;
+  align-items: start;
+}
+.form-grid .field-wide {
+  grid-column: 1 / -1;
+}
+fieldset.field {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+fieldset.field > legend {
+  padding: 0;
+  margin-bottom: 8px;
+}
+.entry {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 16px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--bg);
+}
+.entry > legend {
+  padding: 0 8px;
+}
+.choice-scroll {
+  max-height: 220px;
+  overflow-y: auto;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+.kv .kv-wide {
+  grid-column: 1 / -1;
+}
+.modal-wide {
+  max-width: 860px;
+}
+.tab-count {
+  display: inline-flex;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  margin-left: 6px;
+  border-radius: 999px;
+  background: var(--gold);
+  color: #3b1624;
+  font-size: 11px;
+  align-items: center;
+  justify-content: center;
+}
+.bio-section {
+  break-inside: avoid;
+}
+
+@media print {
+  .site-header,
+  .site-footer,
+  .bottom-tabs,
+  .no-print,
+  .chat-fab,
+  .viewer-panel {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+    color: #000;
+    font-size: 12pt;
+  }
+  .card {
+    border: 1px solid #999;
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: none;
+  }
+  .container {
+    max-width: none;
+    padding: 0;
+  }
+  a {
+    text-decoration: none;
+  }
+}

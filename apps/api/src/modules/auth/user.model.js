@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema(
     phoneVerifiedAt: Date,
     googleId: { type: String, select: false },
     passwordHash: { type: String, select: false },
+    passwordSetAt: Date,
     gender: { type: String, enum: ['male', 'female'], required: true },
     role: { type: String, enum: ROLES, default: 'user', index: true },
     connections: { type: Number, default: 0, min: 0 },
@@ -33,6 +34,7 @@ userSchema.index({ googleId: 1 }, { unique: true, partialFilterExpression: { goo
 
 userSchema.methods.setPassword = async function setPassword(pw) {
   this.passwordHash = await bcrypt.hash(pw, 12);
+  this.passwordSetAt = new Date();
 };
 userSchema.methods.checkPassword = function checkPassword(pw) {
   return this.passwordHash ? bcrypt.compare(pw, this.passwordHash) : Promise.resolve(false);
@@ -49,6 +51,7 @@ userSchema.methods.toSafe = function toSafe() {
     phone: this.phone || null,
     emailVerified: Boolean(this.emailVerifiedAt),
     phoneVerified: Boolean(this.phoneVerifiedAt),
+    hasPassword: Boolean(this.passwordSetAt),
     gender: this.gender,
     role: this.role,
     connections: this.connections,

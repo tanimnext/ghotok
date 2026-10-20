@@ -3,7 +3,8 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { AppProvider } from './lib/app.jsx';
 import App from './App.jsx';
-import './styles.css';
+import '@ghotok/ui/styles.css';
+import './admin.css';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

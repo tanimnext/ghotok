@@ -133,14 +133,12 @@ test('contact form: honeypot, inbox and emailed reply', async () => {
     })
     .expect(201);
   assert.equal(outbox.length, before, 'honeypot messages are dropped silently');
-  let res = await api()
-    .post('/api/contact')
-    .send({
-      name: 'Rahima',
-      email: 'rahima@example.com',
-      subject: 'Office visit',
-      message: 'Can we visit your office on Saturday?',
-    });
+  let res = await api().post('/api/contact').send({
+    name: 'Rahima',
+    email: 'rahima@example.com',
+    subject: 'Office visit',
+    message: 'Can we visit your office on Saturday?',
+  });
   assert.equal(res.status, 201);
   assert.equal(outbox.length, before + 1, 'support is emailed');
   res = await api().get('/api/admin/contact-messages').set(auth(support)).query({ status: 'new' });

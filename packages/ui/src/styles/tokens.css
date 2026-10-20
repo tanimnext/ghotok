@@ -1,0 +1,62 @@
+/* Ghotok design tokens — romantic wedding theme (rose, gold, ivory).
+   Light is the default; [data-theme='dark'] on <html> switches to dark. */
+:root {
+  --bg: #fff9f5;
+  --surface: #ffffff;
+  --surface2: #f8e6e8;
+  --ink: #2b1b22;
+  --muted: #6e545c;
+  --line: #ebd9d6;
+  --rose: #8e2748;
+  --rose-text: #8e2748;
+  --on-rose: #ffffff;
+  --gold: #c79a4b;
+  --gold-text: #9a6f25;
+  --sage: #3f6b52;
+  --sage-bg: #e1efe6;
+  --amber: #6b4a00;
+  --amber-bg: #fff1d6;
+  --danger: #a32d2d;
+  --danger-bg: #fbe7e7;
+  --panel: #3b1624;
+  --on-panel: #fff3f0;
+  --panel-muted: #e4cbd0;
+  --panel-gold: #e3be7b;
+  --panel-line: #6a3a4a;
+  --shadow: 0 28px 60px -28px rgba(70, 25, 45, 0.35);
+  --display: 'Playfair Display', 'Noto Serif Bengali', Georgia, serif;
+  --body: 'Manrope', 'Hind Siliguri', system-ui, sans-serif;
+  --lh-display: 1.1;
+  --radius: 28px;
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --bg: #170e13;
+  --surface: #231620;
+  --surface2: #2f1c28;
+  --ink: #f8ecea;
+  --muted: #c9b3b9;
+  --line: #3c2833;
+  --rose: #e58aa3;
+  --rose-text: #f0a3b8;
+  --on-rose: #2b1b22;
+  --gold-text: #e0bc78;
+  --sage: #8fd0a8;
+  --sage-bg: #1f3a2c;
+  --amber: #f3cf7a;
+  --amber-bg: #3a2e12;
+  --danger: #f2a7a7;
+  --danger-bg: #3e1c1c;
+  --panel: #2a1621;
+  --panel-muted: #d9c2c8;
+  --panel-line: #4e3341;
+  --shadow: 0 28px 60px -28px rgba(0, 0, 0, 0.7);
+  color-scheme: dark;
+}
+
+html[lang='bn'] {
+  --display: 'Noto Serif Bengali', 'Playfair Display', serif;
+  --body: 'Hind Siliguri', 'Manrope', system-ui, sans-serif;
+  --lh-display: 1.4;
+}

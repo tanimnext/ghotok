@@ -152,7 +152,7 @@ export const REPORT_REASONS = [
   o('already_married', 'Already married', 'ইতিমধ্যে বিবাহিত'),
   o('inappropriate', 'Inappropriate behaviour', 'অনুচিত আচরণ'),
   o('money_request', 'Asked for money', 'টাকা চেয়েছে'),
-  o('minor', 'Involves a minor', 'অপ্রাপ্তবয়স্ক জড়িত'),
+  o('minor', 'The person may be under age', 'ব্যক্তির বয়স কম হতে পারে'),
   o('other', 'Other', 'অন্যান্য'),
 ];
 

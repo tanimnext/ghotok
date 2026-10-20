@@ -17,7 +17,9 @@ export function useLoad(path, deps = []) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [path, ...deps]);
-  useEffect(() => { reload(); }, [reload]);
+  useEffect(() => {
+    reload();
+  }, [reload]);
   const setData = (fn) => setState((s) => ({ ...s, data: typeof fn === 'function' ? fn(s.data) : fn }));
   return { ...state, reload, setData };
 }

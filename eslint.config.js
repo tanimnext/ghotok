@@ -65,7 +65,12 @@ export default [
   {
     files: ['apps/web/**/*.{js,jsx}'],
     plugins: { '@next/next': nextPlugin },
-    rules: { ...nextPlugin.configs.recommended.rules, ...nextPlugin.configs['core-web-vitals'].rules },
+    rules: {
+      ...nextPlugin.configs.recommended.rules,
+      ...nextPlugin.configs['core-web-vitals'].rules,
+      // App Router: fonts in the root layout load on every page (the rule targets pages/_document).
+      '@next/next/no-page-custom-font': 'off',
+    },
     settings: { next: { rootDir: 'apps/web' } },
   },
   prettier,

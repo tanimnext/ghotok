@@ -1,29 +1,34 @@
-import './globals.css';
+import '@ghotok/ui/styles.css';
+import './site.css';
 import { Providers } from '@/components/Providers';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { getPrefs, SITE_URL } from '@/lib/server';
+import BottomTabs from '@/components/BottomTabs';
+import ChatButton from '@/components/ChatButton';
+import { getPrefs, getSettings, SITE_URL, ADMIN_URL } from '@/lib/server';
 
 export async function generateMetadata() {
-  const { lang } = await getPrefs();
-  const bn = lang === 'bn';
+  const { lang, t } = await getPrefs();
   return {
     metadataBase: new URL(SITE_URL),
-    title: { default: bn ? 'ঘটক — সব ধর্মের জন্য বিশ্বস্ত ম্যাট্রিমনি' : 'Ghotok — Trusted matrimony for every faith in Bangladesh', template: '%s · Ghotok' },
-    description: bn
-      ? 'হিন্দু, মুসলিম, খ্রিস্টান ও বৌদ্ধ পরিবারের জন্য যাচাইকৃত বায়োডাটা। বিনামূল্যে বায়োডাটা তৈরি করুন, নিরাপদে অভিভাবকের সাথে যোগাযোগ করুন।'
-      : 'Verified marriage biodatas for Hindu, Muslim, Christian and Buddhist families in Bangladesh. Create a free biodata and reach guardians safely.',
-    openGraph: { siteName: 'Ghotok', type: 'website', locale: bn ? 'bn_BD' : 'en_US' },
+    title: { default: t.meta.title, template: '%s · Ghotok' },
+    description: t.meta.description,
+    applicationName: 'Ghotok',
+    openGraph: { siteName: 'Ghotok', type: 'website', locale: lang === 'bn' ? 'bn_BD' : 'en_US' },
     alternates: { canonical: '/' },
+    icons: { icon: '/favicon.svg', apple: '/icon-192.png' },
   };
 }
 
 export const viewport = {
-  themeColor: [{ media: '(prefers-color-scheme: light)', color: '#FFF9F5' }, { media: '(prefers-color-scheme: dark)', color: '#170E13' }],
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#FFF9F5' },
+    { media: '(prefers-color-scheme: dark)', color: '#170E13' },
+  ],
 };
 
 export default async function RootLayout({ children }) {
-  const { lang, theme, t } = await getPrefs();
+  const [{ lang, theme, t }, settings] = await Promise.all([getPrefs(), getSettings()]);
   return (
     <html lang={lang} data-theme={theme} suppressHydrationWarning>
       <head>
@@ -33,14 +38,22 @@ export default async function RootLayout({ children }) {
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Noto+Serif+Bengali:wght@500;600&family=Manrope:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap"
         />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
       <body>
         <Providers initialLang={lang} initialTheme={theme}>
-          <a href="#main" className="sr-only">Skip to content</a>
-          <Header />
+          <a href="#main" className="sr-only skip-link">
+            {t.nav.skip}
+          </a>
+          {settings?.announcement?.[lang] && (
+            <div className="announcement" role="status">
+              {settings.announcement[lang]}
+            </div>
+          )}
+          <Header adminUrl={ADMIN_URL} />
           <main id="main">{children}</main>
-          <Footer t={t} lang={lang} />
+          <Footer t={t} lang={lang} settings={settings} />
+          <ChatButton href={settings?.chatLink || settings?.social?.whatsapp} label={t.nav.chat} />
+          <BottomTabs />
         </Providers>
       </body>
     </html>

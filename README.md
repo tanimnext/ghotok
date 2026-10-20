@@ -6,15 +6,16 @@ The site works in **Bangla and English** and has **light and dark modes**.
 
 ## Contents
 
-| Folder | What it is | Stack |
-|---|---|---|
-| `server/` | REST API | Node.js 20+, Express 4, MongoDB (Mongoose 8), JWT, Zod |
-| `web/` | Public website and user dashboard | Next.js 15 (App Router), React 19, server-side rendered for SEO |
-| `admin/` | Staff admin panel | React 19 + Vite, React Router |
+| Folder    | What it is                        | Stack                                                           |
+| --------- | --------------------------------- | --------------------------------------------------------------- |
+| `server/` | REST API                          | Node.js 20+, Express 4, MongoDB (Mongoose 8), JWT, Zod          |
+| `web/`    | Public website and user dashboard | Next.js 15 (App Router), React 19, server-side rendered for SEO |
+| `admin/`  | Staff admin panel                 | React 19 + Vite, React Router                                   |
 
 ## Features
 
 ### Public website
+
 - Home page with quick search, stats, recently approved biodatas, packages
 - Biodata search with filters: type, religion, marital status, age, height, division, district, education, profession, complexion, family status, NID-verified only, and search by biodata number
 - Biodata detail page with all public sections. Contact details stay hidden until unlocked.
@@ -22,6 +23,7 @@ The site works in **Bangla and English** and has **light and dark modes**.
 - Pages: Packages, Guide, FAQ, About, Contact, Privacy policy, Terms, Refund policy
 
 ### User dashboard
+
 - Account: register with email and/or a Bangladeshi mobile number, log in, forgot/reset password, change password, sign out of all devices
 - Biodata: an 11-step form (general, address, education, family, personal, occupation, marriage, expected partner, private contact, photo + NID, pledge) that saves as you go, then is submitted for review
 - Validation: legal minimum age (bride 18, groom 21), and the guardian number must be valid and must not be the user's own number
@@ -34,20 +36,23 @@ The site works in **Bangla and English** and has **light and dark modes**.
 - In-app notifications and support tickets
 
 ### Payments
+
 - **Manual:** the user sends money with bKash, Nagad or Rocket and submits the TrxID; staff verify it. A TrxID can only be used once.
 - **bKash Tokenized Checkout:** ready in code and switched off by default. Set `BKASH_API_ENABLED=true` and add merchant credentials, and an "instant bKash" button appears. Connections are added automatically after the callback.
 - Default packages: 3 connections for ৳300 and 5 connections for ৳500. Packages can be edited in the admin panel.
 
 ### Admin panel (role based)
-| Role | Can do |
-|---|---|
-| `support` (reviewer) | Biodata approvals (approve, reject, ask for corrections), NID verification, hide from search, reports, support tickets, view users |
-| `admin` | Everything above, plus payments, refunds, manual connection grant/revoke/refund, recovery queue, suspend users, packages (view), audit log |
-| `superadmin` | Everything, plus role assignment and package editing |
+
+| Role                 | Can do                                                                                                                                     |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `support` (reviewer) | Biodata approvals (approve, reject, ask for corrections), NID verification, hide from search, reports, support tickets, view users         |
+| `admin`              | Everything above, plus payments, refunds, manual connection grant/revoke/refund, recovery queue, suspend users, packages (view), audit log |
+| `superadmin`         | Everything, plus role assignment and package editing                                                                                       |
 
 Overview dashboard: work queues, totals, revenue, 14-day signup and revenue charts, and biodatas by status. Every staff decision is written to an **audit log**.
 
 ### Privacy and security
+
 - Public API responses never include contact details, NID, photo key, owner id or exact birth date (age only)
 - Photos and NID files are private; they are streamed only to the owner, staff, or (for photos) users who unlocked the contact
 - File uploads are checked by magic bytes, not only by extension (JPG, PNG, WEBP, PDF; max 5 MB)
@@ -96,19 +101,19 @@ The test suite starts its own in-memory MongoDB. It covers registration and logi
 
 See `server/.env.example`, `web/.env.example` and `admin/.env.example`. The most important ones:
 
-| Variable | Where | Purpose |
-|---|---|---|
-| `MONGODB_URI` | server | Database connection |
-| `JWT_SECRET` | server | Long random string (required in production) |
-| `CORS_ORIGINS` | server | Website and admin URLs, comma separated |
-| `WEB_URL`, `API_PUBLIC_URL` | server | Used for bKash callback and password-reset links |
-| `BKASH_MERCHANT_NUMBER`, `NAGAD_MERCHANT_NUMBER`, `ROCKET_MERCHANT_NUMBER` | server | Numbers shown to users for manual payment |
-| `BKASH_API_ENABLED` + `BKASH_*` | server | bKash Tokenized Checkout credentials |
-| `STORAGE_DRIVER` + `R2_*` | server | `local` disk or Cloudflare R2 |
-| `SMTP_*` | server | Email for password reset (logs to console when empty) |
-| `NEXT_PUBLIC_API_URL`, `API_URL`, `NEXT_PUBLIC_SITE_URL` | web | API and canonical site URL |
-| `NEXT_PUBLIC_ADMIN_URL` | web | Shows an "Admin" link in the header for staff |
-| `VITE_API_URL`, `VITE_WEB_URL` | admin | API and website URLs |
+| Variable                                                                   | Where  | Purpose                                               |
+| -------------------------------------------------------------------------- | ------ | ----------------------------------------------------- |
+| `MONGODB_URI`                                                              | server | Database connection                                   |
+| `JWT_SECRET`                                                               | server | Long random string (required in production)           |
+| `CORS_ORIGINS`                                                             | server | Website and admin URLs, comma separated               |
+| `WEB_URL`, `API_PUBLIC_URL`                                                | server | Used for bKash callback and password-reset links      |
+| `BKASH_MERCHANT_NUMBER`, `NAGAD_MERCHANT_NUMBER`, `ROCKET_MERCHANT_NUMBER` | server | Numbers shown to users for manual payment             |
+| `BKASH_API_ENABLED` + `BKASH_*`                                            | server | bKash Tokenized Checkout credentials                  |
+| `STORAGE_DRIVER` + `R2_*`                                                  | server | `local` disk or Cloudflare R2                         |
+| `SMTP_*`                                                                   | server | Email for password reset (logs to console when empty) |
+| `NEXT_PUBLIC_API_URL`, `API_URL`, `NEXT_PUBLIC_SITE_URL`                   | web    | API and canonical site URL                            |
+| `NEXT_PUBLIC_ADMIN_URL`                                                    | web    | Shows an "Admin" link in the header for staff         |
+| `VITE_API_URL`, `VITE_WEB_URL`                                             | admin  | API and website URLs                                  |
 
 ## Deployment outline
 

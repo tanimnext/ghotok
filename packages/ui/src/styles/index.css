@@ -1,0 +1,4 @@
+/* Import once at the root of each app: import '@ghotok/ui/styles.css'; */
+@import './tokens.css';
+@import './base.css';
+@import './biodata.css';

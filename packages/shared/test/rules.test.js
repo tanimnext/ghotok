@@ -174,3 +174,12 @@ test('wallet numbers: Rocket accounts carry a check digit', async () => {
   assert.equal(normalizeWalletNumber('rocket', '০১৭১১০০০০০০১'), '017110000001');
   assert.equal(normalizeWalletNumber('rocket', '01211000000'), null);
 });
+
+test('status labels exist in both languages', async () => {
+  const { STATUS, statusLabel } = await import('../src/i18n/labels.js');
+  for (const [kind, values] of Object.entries(STATUS)) {
+    for (const [v, l] of Object.entries(values)) assert.ok(l.en && l.bn, `${kind}.${v}`);
+  }
+  assert.equal(statusLabel('payment', 'pending', 'bn'), 'যাচাইয়ের অপেক্ষায়');
+  assert.equal(statusLabel('payment', 'mystery', 'en'), 'mystery');
+});

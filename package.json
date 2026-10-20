@@ -22,11 +22,14 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "npm run test --workspace @ghotok/shared && npm run test --workspace @ghotok/api",
+    "test": "npm run test --workspace @ghotok/shared && npm run test --workspace @ghotok/web && npm run test --workspace @ghotok/api",
     "test:e2e": "playwright test --config e2e/playwright.config.js",
     "seed": "npm run seed --workspace @ghotok/api",
     "geo:build": "node packages/shared/scripts/build-locations.mjs",
-    "check": "npm run lint && npm run format:check && npm run test && npm run build"
+    "check": "npm run lint && npm run format:check && npm run test && npm run build",
+    "test:unit": "npm run test --workspace @ghotok/shared && npm run test --workspace @ghotok/web",
+    "openapi": "npm run openapi --workspace @ghotok/api",
+    "seed:demo": "npm run seed --workspace @ghotok/api -- --demo"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

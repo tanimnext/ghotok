@@ -1,0 +1,152 @@
+/* Admin-only styles. Shared styles live in @ghotok/ui. */
+/* ---------- Admin shell ---------- */
+.admin-shell {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 100vh;
+}
+.admin-nav {
+  flex: 0 0 272px;
+  max-width: 100%;
+  background: var(--panel);
+  color: var(--on-panel);
+  padding: 28px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 15px;
+  font-weight: 600;
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+.admin-nav a {
+  padding: 12px 18px;
+  border-radius: 999px;
+  color: var(--panel-muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.admin-nav a:hover {
+  color: var(--on-panel);
+}
+.admin-nav a.active {
+  background: var(--panel-gold);
+  color: #3b1624;
+}
+.admin-main {
+  flex: 1 1 720px;
+  min-width: 0;
+  padding: 28px clamp(16px, 3vw, 40px) 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+@media (max-width: 900px) {
+  .admin-nav {
+    position: static;
+    height: auto;
+    flex-basis: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 14px;
+  }
+  .admin-nav > div:first-child {
+    width: 100%;
+    padding-bottom: 8px;
+  }
+  .admin-nav a {
+    padding: 8px 14px;
+  }
+  .admin-nav > div:last-child {
+    margin-top: 0;
+    padding-top: 8px;
+    flex-direction: row;
+    width: 100%;
+  }
+}
+.kpi {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.kpi .v {
+  font-family: var(--display);
+  font-size: 42px;
+  font-weight: 500;
+  color: var(--rose-text);
+  line-height: 1.1;
+}
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 140px;
+}
+.bars span {
+  flex: 1;
+  background: var(--rose);
+  border-radius: 6px 6px 2px 2px;
+  min-height: 2px;
+  opacity: 0.85;
+}
+.bars.gold span {
+  background: var(--gold);
+}
+.row-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.preview-img {
+  max-width: 100%;
+  max-height: 420px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+}
+.nav-badge {
+  background: var(--panel-gold);
+  color: #3b1624;
+}
+.nav-badge-urgent {
+  background: #f2a7a7;
+  color: #3b1624;
+}
+.review-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-start;
+}
+.review-main {
+  flex: 1 1 620px;
+  min-width: 0;
+}
+.review-side {
+  flex: 0 1 360px;
+  min-width: 300px;
+  position: sticky;
+  top: 20px;
+}
+@media (max-width: 900px) {
+  .review-side {
+    position: static;
+    min-width: 0;
+    flex-basis: 100%;
+  }
+}
+.editable > .card {
+  margin: 0;
+}
+.input-sm {
+  min-height: 40px;
+  width: auto;
+}
