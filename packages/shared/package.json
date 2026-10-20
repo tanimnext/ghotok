@@ -1,0 +1,23 @@
+{
+  "name": "@ghotok/shared",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Option lists, the biodata schema and business rules shared by the Ghotok API, website and admin panel",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./options": "./src/options.js",
+    "./format": "./src/format.js",
+    "./biodata": "./src/biodata/schema.js",
+    "./rules": "./src/biodata/rules.js",
+    "./errors": "./src/i18n/errors.js",
+    "./phone": "./src/phone.js"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  }
+}
