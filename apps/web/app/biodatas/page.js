@@ -141,11 +141,13 @@ export default async function BiodatasPage({ searchParams }) {
       </div>
 
       <div className="container search-layout">
-        <details className="filters-toggle" open>
-          <summary className="btn btn-outline btn-block">
+        <div className="filters-toggle">
+          {/* CSS-only toggle: works without JavaScript. Phones start with the filters folded. */}
+          <input type="checkbox" id="show-filters" className="sr-only filters-switch" />
+          <label htmlFor="show-filters" className="btn btn-outline btn-block filters-button">
             {s.filters}
             {active ? ` (${num(active, lang)})` : ''}
-          </summary>
+          </label>
           <form method="get" action="/biodatas" className="card stack gap-20 filters" aria-label={s.filters}>
             <div className="row between">
               <b style={{ fontSize: 18 }}>{s.filters}</b>
@@ -288,7 +290,7 @@ export default async function BiodatasPage({ searchParams }) {
               {s.showResults}
             </button>
           </form>
-        </details>
+        </div>
 
         <div className="stack gap-20 results">
           <p className="muted" aria-live="polite">

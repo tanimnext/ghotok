@@ -183,3 +183,13 @@ test('status labels exist in both languages', async () => {
   assert.equal(statusLabel('payment', 'pending', 'bn'), 'যাচাইয়ের অপেক্ষায়');
   assert.equal(statusLabel('payment', 'mystery', 'en'), 'mystery');
 });
+
+test('place() skips repeated names', async () => {
+  const { place } = await import('../src/format.js');
+  const a = { permanentUpazila: 'dhaka-dhamrai', permanentDistrict: 'dhaka', permanentDivision: 'dhaka' };
+  assert.equal(place(a, 'permanent', 'en'), 'Dhamrai, Dhaka');
+  assert.equal(
+    place({ livesAbroad: true, presentCountry: 'japan', presentArea: 'Tokyo' }, 'present', 'en'),
+    'Tokyo, Japan'
+  );
+});

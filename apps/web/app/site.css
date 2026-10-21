@@ -191,11 +191,7 @@ html[lang='bn'] .brand-name {
   flex: 0 0 300px;
   max-width: 100%;
 }
-.filters-toggle > summary {
-  display: none;
-  list-style: none;
-}
-.filters-toggle > summary::-webkit-details-marker {
+.filters-toggle > .filters-button {
   display: none;
 }
 .results {
@@ -206,12 +202,16 @@ html[lang='bn'] .brand-name {
   .filters-toggle {
     flex-basis: 100%;
   }
-  .filters-toggle > summary {
+  .filters-toggle > .filters-button {
     display: inline-flex;
     margin-bottom: 12px;
   }
-  .filters-toggle:not([open]) > .filters {
+  .filters-switch:not(:checked) ~ .filters {
     display: none;
+  }
+  .filters-switch:focus-visible + .filters-button {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
   }
 }
 

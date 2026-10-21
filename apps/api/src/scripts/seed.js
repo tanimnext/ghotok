@@ -216,6 +216,7 @@ export async function seed({ withDemo = false, log = console.log } = {}) {
   }
 
   if (!withDemo || (await User.exists({ email: 'demo1@example.com' }))) return;
+  if (env.isProd) throw new Error('Refusing to create demo biodatas with NODE_ENV=production');
 
   for (const [i, person] of PEOPLE.entries()) {
     const input = demoBiodata(person, i);

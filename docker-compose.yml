@@ -1,0 +1,63 @@
+# Local production-like stack: MongoDB + API + website + admin panel.
+#   cp .env.docker.example .env.docker   (then edit secrets)
+#   docker compose --env-file .env.docker up --build
+# Website http://localhost:3000 · Admin http://localhost:5173 · API http://localhost:5000/api/docs
+
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ['CMD', 'mongosh', '--quiet', '--eval', 'db.adminCommand("ping").ok']
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: { context: ., dockerfile: apps/api/Dockerfile }
+    restart: unless-stopped
+    depends_on:
+      mongo: { condition: service_healthy }
+    env_file: .env.docker
+    environment:
+      MONGODB_URI: ${MONGODB_URI:-mongodb://mongo:27017/ghotok}
+      CORS_ORIGINS: ${PUBLIC_WEB_URL:-http://localhost:3000},${PUBLIC_ADMIN_URL:-http://localhost:5173}
+      WEB_URL: ${PUBLIC_WEB_URL:-http://localhost:3000}
+      API_PUBLIC_URL: ${PUBLIC_API_URL:-http://localhost:5000}
+    volumes:
+      - uploads:/app/uploads
+    ports:
+      - '5000:5000'
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${PUBLIC_API_URL:-http://localhost:5000}
+        NEXT_PUBLIC_SITE_URL: ${PUBLIC_WEB_URL:-http://localhost:3000}
+        NEXT_PUBLIC_ADMIN_URL: ${PUBLIC_ADMIN_URL:-http://localhost:5173}
+    restart: unless-stopped
+    depends_on: [api]
+    environment:
+      API_URL: http://api:5000
+    ports:
+      - '3000:3000'
+
+  admin:
+    build:
+      context: .
+      dockerfile: apps/admin/Dockerfile
+      args:
+        VITE_API_URL: ${PUBLIC_API_URL:-http://localhost:5000}
+        VITE_WEB_URL: ${PUBLIC_WEB_URL:-http://localhost:3000}
+    restart: unless-stopped
+    depends_on: [api]
+    ports:
+      - '5173:80'
+
+volumes:
+  mongo-data:
+  uploads:

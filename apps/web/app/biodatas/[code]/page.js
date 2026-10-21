@@ -68,10 +68,12 @@ export default async function BiodataPage({ params }) {
                   </span>
                 ))}
               </div>
-              <h1 className="display row gap-12 wrap" style={{ fontSize: 'clamp(30px, 4vw, 42px)' }}>
-                {b.code}
+              <div className="row gap-12 wrap">
+                <h1 className="display" style={{ fontSize: 'clamp(30px, 4vw, 42px)' }}>
+                  {b.code}
+                </h1>
                 <CopyCode code={b.code} />
-              </h1>
+              </div>
               <p className="muted">{summary(b, lang, t).join(' · ')}</p>
               {b.address && <p className="small muted">{place(b.address, 'present', lang)}</p>}
               <span className="row gap-8 small muted">

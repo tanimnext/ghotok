@@ -150,3 +150,51 @@
   min-height: 40px;
   width: auto;
 }
+.admin-brand {
+  padding: 0 12px 22px;
+}
+.admin-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+.admin-nav-foot {
+  margin-top: auto;
+  padding-top: 24px;
+}
+.admin-menu-btn {
+  display: none;
+  margin-left: auto;
+  border: 1px solid var(--panel-line);
+  background: transparent;
+  color: var(--on-panel);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+@media (max-width: 900px) {
+  .admin-brand {
+    padding: 0 4px;
+    width: 100%;
+  }
+  .admin-menu-btn {
+    display: inline-flex;
+  }
+  .admin-links {
+    display: none;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-top: 8px;
+  }
+  .admin-nav[data-open='true'] .admin-links {
+    display: flex;
+  }
+  .admin-nav-foot {
+    flex-direction: row;
+    width: 100%;
+    padding-top: 8px;
+  }
+}

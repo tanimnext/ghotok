@@ -71,6 +71,11 @@ export function createApp() {
         return id;
       },
       autoLogging: { ignore: (req) => req.url === '/api/health' },
+      // Keep access logs small: no headers (they hold tokens and cookies) and no bodies.
+      serializers: {
+        req: (req) => ({ id: req.id, method: req.method, url: req.url }),
+        res: (res) => ({ statusCode: res.statusCode }),
+      },
       customLogLevel: (_req, res, err) =>
         err || res.statusCode >= 500 ? 'error' : res.statusCode >= 400 ? 'warn' : 'info',
     })

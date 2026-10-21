@@ -58,6 +58,6 @@ export function place(address, which, lang) {
     label('district', address[`${p}District`], lang),
     label('division', address[`${p}Division`], lang),
   ]
-    .filter(Boolean)
+    .filter((v, i, all) => v && all.indexOf(v) === i) // "Dhaka, Dhaka" → "Dhaka"
     .join(', ');
 }

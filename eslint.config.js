@@ -42,14 +42,14 @@ export default [
     files: [
       'apps/api/**/*.js',
       'packages/shared/**/*.{js,mjs}',
-      'e2e/**/*.js',
-      '*.config.{js,mjs}',
+      'e2e/**/*.{js,mjs}',
+      '**/*.config.{js,mjs}',
       'eslint.config.js',
     ],
     languageOptions: { globals: globals.node },
   },
   {
-    files: ['apps/api/src/scripts/**/*.js', 'packages/shared/scripts/**/*.mjs', 'e2e/**/*.js'],
+    files: ['apps/api/src/scripts/**/*.js', 'packages/shared/scripts/**/*.mjs', 'e2e/**/*.{js,mjs}'],
     rules: { 'no-console': 'off' },
   },
   // React (web + admin + shared UI)

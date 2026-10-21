@@ -1,4 +1,5 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useApp, can, useLoad } from '../lib/app.jsx';
 import { WEB_URL } from '../lib/api.js';
 import { digits, statusLabel } from '@ghotok/shared';
@@ -66,6 +67,9 @@ export function Toggles() {
 export default function Layout() {
   const { t, lang, user, logout } = useApp();
   const n = t.nav;
+  const { pathname } = useLocation();
+  const [open, setOpen] = useState(false);
+  useEffect(() => setOpen(false), [pathname]);
   const { data } = useLoad('/admin/overview');
   const q = data?.queues || {};
   const items = [
@@ -87,8 +91,8 @@ export default function Layout() {
 
   return (
     <div className="admin-shell">
-      <nav className="admin-nav" aria-label="Admin">
-        <div className="row gap-12" style={{ padding: '0 12px 22px' }}>
+      <nav className="admin-nav" aria-label="Admin" data-open={open}>
+        <div className="row gap-12 admin-brand">
           <Rings />
           <span className="display" style={{ fontSize: 24, fontWeight: 600 }}>
             Ghotok
@@ -96,22 +100,33 @@ export default function Layout() {
           <span className="pill" style={{ border: '1px solid var(--panel-line)', color: 'var(--panel-gold)' }}>
             ADMIN
           </span>
-        </div>
-        {items.map(([to, label, badge, , urgent]) => (
-          <NavLink key={to} to={to} end={to === '/'}>
-            <span>{label}</span>
-            {badge ? (
-              <span className={`pill nav-badge${urgent ? ' nav-badge-urgent' : ''}`}>{digits(badge, lang)}</span>
-            ) : null}
-          </NavLink>
-        ))}
-        <div className="stack gap-8" style={{ marginTop: 'auto', paddingTop: 24 }}>
-          <a href={WEB_URL} target="_blank" rel="noreferrer" style={{ color: 'var(--panel-muted)' }}>
-            {n.site} ↗
-          </a>
-          <button type="button" className="btn btn-gold btn-sm" onClick={logout}>
-            {n.logout}
+          <button
+            type="button"
+            className="admin-menu-btn"
+            aria-expanded={open}
+            aria-controls="admin-links"
+            onClick={() => setOpen((o) => !o)}
+          >
+            {n.menu}
           </button>
+        </div>
+        <div id="admin-links" className="admin-links">
+          {items.map(([to, label, badge, , urgent]) => (
+            <NavLink key={to} to={to} end={to === '/'}>
+              <span>{label}</span>
+              {badge ? (
+                <span className={`pill nav-badge${urgent ? ' nav-badge-urgent' : ''}`}>{digits(badge, lang)}</span>
+              ) : null}
+            </NavLink>
+          ))}
+          <div className="stack gap-8 admin-nav-foot">
+            <a href={WEB_URL} target="_blank" rel="noreferrer" style={{ color: 'var(--panel-muted)' }}>
+              {n.site} ↗
+            </a>
+            <button type="button" className="btn btn-gold btn-sm" onClick={logout}>
+              {n.logout}
+            </button>
+          </div>
         </div>
       </nav>
       <div className="admin-main">

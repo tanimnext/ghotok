@@ -1,6 +1,7 @@
 import { apiGet, SITE_URL } from '@/lib/server';
 
-export const revalidate = 3600;
+// Rendered on request (the API is not reachable at build time); API responses are cached for an hour.
+export const dynamic = 'force-dynamic';
 
 export default async function sitemap() {
   const fixed = [

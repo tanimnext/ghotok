@@ -2,6 +2,7 @@
 const en = {
   list: { age: 'Age', religion: 'Religion', district: 'District / country' },
   nav: {
+    menu: 'Menu',
     overview: 'Overview',
     biodatas: 'Biodata approvals',
     nid: 'NID verification',

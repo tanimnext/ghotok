@@ -2,6 +2,7 @@
 const bn = {
   list: { age: 'বয়স', religion: 'ধর্ম', district: 'জেলা / দেশ' },
   nav: {
+    menu: 'মেনু',
     overview: 'ওভারভিউ',
     biodatas: 'বায়োডাটা অনুমোদন',
     nid: 'এনআইডি যাচাই',

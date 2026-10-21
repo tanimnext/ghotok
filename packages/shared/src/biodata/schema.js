@@ -55,7 +55,7 @@ export const SECTIONS = [
         required: true,
         private: true,
         label: L('Date of birth', 'জন্মতারিখ'),
-        help: L('Only your age and birth year are shown publicly.', 'পাবলিকভাবে শুধু বয়স ও জন্মসাল দেখানো হয়।'),
+        help: L('Only your age and birth month are shown publicly.', 'পাবলিকভাবে শুধু বয়স ও জন্মমাস দেখানো হয়।'),
       },
       { key: 'heightInches', type: 'height', required: true, min: 48, max: 90, label: L('Height', 'উচ্চতা') },
       { key: 'weightKg', type: 'number', min: 30, max: 200, unit: 'kg', label: L('Weight (kg)', 'ওজন (কেজি)') },
